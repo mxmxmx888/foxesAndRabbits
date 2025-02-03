@@ -129,7 +129,7 @@ public class Simulator
                 else if(rand.nextDouble() <= TIGER_CREATION_PROBABILITY ) {
                     Location location = new Location(row, col);
                     Tiger tiger = new Tiger(true, location);
-                    field.placeAnimal(rabbit, location);
+                    field.placeAnimal(tiger, location);
                 }
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
