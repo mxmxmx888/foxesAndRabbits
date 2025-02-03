@@ -1,5 +1,4 @@
 import java.util.*;
-// wrote this in github
 
 /**
  * A simple predator-prey simulator, based on a rectangular field containing 
@@ -30,12 +29,9 @@ public class Simulator
     /**
      * Construct a simulation field with default size.
      */
-    public static void main(String[] args)
+    public Simulator()
     {
-
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
-        runLongSimulation();
-        // test comment
     }
     
     /**
