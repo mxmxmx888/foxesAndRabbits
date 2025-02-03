@@ -34,6 +34,7 @@ public class Simulator
 
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
         runLongSimulation();
+        // test comment
     }
     
     /**
