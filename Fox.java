@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class Fox extends Animal
 {
-    // Characteristics shared by all foxes (class variables).
+    // Characteristics shared by all foxes (class variables).c
     // The age at which a fox can start to breed.
     private static final int BREEDING_AGE = 15;
     // The age to which a fox can live.
