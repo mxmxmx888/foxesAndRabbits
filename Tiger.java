@@ -4,11 +4,12 @@ import java.util.Random;
 
 public class Tiger extends Animal
 {
-    private static final int BREEDING_AGE = 15;
+    private static final int BREEDING_AGE = 20;
     private static final int MAX_AGE = 150;
-    private static final double BREEDING_PROBABILITY = 0.08;
-    private static final int MAX_LITTER_SIZE = 2;
-    private static final int RABBIT_FOOD_VALUE = 9;
+    private static final double BREEDING_PROBABILITY = 0.03;
+    private static final int MAX_LITTER_SIZE = 4;
+    private static final int RABBIT_FOOD_VALUE = 7;
+    private static final int FOX_FOOD_VALUE = 16;
     private static final Random rand = Randomizer.getRandom();
     private int age, foodLevel;
 
@@ -52,7 +53,7 @@ public class Tiger extends Animal
     }
 
     public String toString() {
-        return "Fox{" +
+        return "Tiger{" +
                 "age=" + age +
                 ", alive=" + isAlive() +
                 ", location=" + getLocation() +
@@ -103,6 +104,13 @@ public class Tiger extends Animal
                     foodLocation = loc;
                 }
             }
+            else if (animal instanceof Fox fox)
+            {
+                if(fox.isAlive()){
+                    fox.setDead();
+                    foodLevel = FOX_FOOD_VALUE;
+                }
+            }
         }
         return foodLocation;
     }
@@ -120,7 +128,7 @@ public class Tiger extends Animal
         if(births > 0) {
             for (int b = 0; b < births && ! freeLocations.isEmpty(); b++) {
                 Location loc = freeLocations.remove(0);
-                Fox young = new Fox(false, loc);
+                Tiger young = new Tiger(false, loc);
                 nextFieldState.placeAnimal(young, loc);
             }
         }
