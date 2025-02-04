@@ -19,7 +19,7 @@ public class Simulator
     // The probability that a rabbit will be created in any given position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
     // probability that tiger will be created
-    private static final double TIGER_CREATION_PROBABILITY = 0.02;
+    private static final double TIGER_CREATION_PROBABILITY = 0.01;
 
     // The current state of the field.
     private Field field;
