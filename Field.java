@@ -120,18 +120,18 @@ public class Field
     {
         int numFoxes = 0, numRabbits = 0;
         for(Animal anAnimal : field.values()) {
-            if(anAnimal instanceof Fox fox) {
-                if(fox.isAlive()) {
+            if(anAnimal instanceof Wolf wolf) {
+                if(wolf.isAlive()) {
                     numFoxes++;
                 }
             }
-            else if(anAnimal instanceof Rabbit rabbit) {
-                if(rabbit.isAlive()) {
+            else if(anAnimal instanceof Capybara capybara) {
+                if(capybara.isAlive()) {
                     numRabbits++;
                 }
             }
         }
-        System.out.println("Rabbits: " + numRabbits +
+        System.out.println(":Capybaras: " + numRabbits +
                            " Foxes: " + numFoxes);
     }
 
@@ -154,13 +154,13 @@ public class Field
         Iterator<Animal> it = animals.iterator();
         while(it.hasNext() && ! (rabbitFound && foxFound)) {
             Animal anAnimal = it.next();
-            if(anAnimal instanceof Rabbit rabbit) {
-                if(rabbit.isAlive()) {
+            if(anAnimal instanceof Capybara capybara) {
+                if(capybara.isAlive()) {
                     rabbitFound = true;
                 }
             }
-            else if(anAnimal instanceof Fox fox) {
-                if(fox.isAlive()) {
+            else if(anAnimal instanceof Wolf wolf) {
+                if(wolf.isAlive()) {
                     foxFound = true;
                 }
             }

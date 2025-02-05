@@ -15,11 +15,15 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.04;
+    private static final double WOLF_CREATION_PROBABILITY = 0.04;
     // The probability that a rabbit will be created in any given position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.08;
+    private static final double CAPYBARA_CREATION_PROBABILITY = 0.08;
     // probability that tiger will be created
     private static final double TIGER_CREATION_PROBABILITY = 0.01;
+
+    private static final double ANACONDA_CREATION_PROBABILITY = 0.03;
+
+    private static final double HERON_CREATION_PROBABILITY = 0.05;
 
     // The current state of the field.
     private Field field;
@@ -121,20 +125,30 @@ public class Simulator
         field.clear();
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
-                if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
+                if(rand.nextDouble() <= WOLF_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Fox fox = new Fox(true, location);
-                    field.placeAnimal(fox, location);
+                    Wolf wolf = new Wolf(true, location);
+                    field.placeAnimal(wolf, location);
                 }
                 else if(rand.nextDouble() <= TIGER_CREATION_PROBABILITY ) {
                     Location location = new Location(row, col);
                     Tiger tiger = new Tiger(true, location);
                     field.placeAnimal(tiger, location);
                 }
-                else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
+                else if(rand.nextDouble() <= CAPYBARA_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Rabbit rabbit = new Rabbit(true, location);
-                    field.placeAnimal(rabbit, location);
+                    Capybara capybara = new Capybara(true, location);
+                    field.placeAnimal(capybara, location);
+                }
+                else if(rand.nextDouble() <= ANACONDA_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Anaconda anaconda = new Anaconda(true, location);
+                    field.placeAnimal(anaconda, location);
+                }
+                else if(rand.nextDouble() <= HERON_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Heron heron = new Heron(true, location);
+                    field.placeAnimal(heron, location);
                 }
                 // else leave the location empty.
             }
