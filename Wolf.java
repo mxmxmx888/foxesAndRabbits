@@ -9,7 +9,7 @@ import java.util.Random;
  * @author David J. Barnes and Michael Kölling
  * @version 7.1
  */
-public class Fox extends Animal
+public class Wolf extends Animal
 {
     // Characteristics shared by all foxes (class variables).c
     // The age at which a fox can start to breed.
@@ -17,12 +17,12 @@ public class Fox extends Animal
     // The age to which a fox can live.
     private static final int MAX_AGE = 150;
     // The likelihood of a fox breeding.
-    private static final double BREEDING_PROBABILITY = 0.1;
+    private static final double BREEDING_PROBABILITY = 0.12;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 2;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int RABBIT_FOOD_VALUE = 10;
+    private static final int CAPYBARA_FOOD_VALUE = 10;
 
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
@@ -41,7 +41,7 @@ public class Fox extends Animal
      * @param randomAge If true, the fox will have random age and hunger level.
      * @param location The location within the field.
      */
-    public Fox(boolean randomAge, Location location)
+    public Wolf(boolean randomAge, Location location)
     {
         super(location);
         if(randomAge) {
@@ -50,7 +50,7 @@ public class Fox extends Animal
         else {
             age = 0;
         }
-        foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
+        foodLevel = rand.nextInt(CAPYBARA_FOOD_VALUE);
     }
     
     /**
@@ -91,7 +91,7 @@ public class Fox extends Animal
 
     @Override
     public String toString() {
-        return "Fox{" +
+        return "Wolf{" +
                 "age=" + age +
                 ", alive=" + isAlive() +
                 ", location=" + getLocation() +
@@ -99,9 +99,7 @@ public class Fox extends Animal
                 '}';
     }
 
-    /**
-     * Increase the age. This could result in the fox's death.
-     */
+
     private void incrementAge()
     {
         age++;
@@ -110,9 +108,7 @@ public class Fox extends Animal
         }
     }
     
-    /**
-     * Make this fox more hungry. This could result in the fox's death.
-     */
+
     private void incrementHunger()
     {
         foodLevel--;
@@ -121,12 +117,7 @@ public class Fox extends Animal
         }
     }
     
-    /**
-     * Look for rabbits adjacent to the current location.
-     * Only the first live rabbit is eaten.
-     * @param field The field currently occupied.
-     * @return Where food was found, or null if it wasn't.
-     */
+
     private Location findFood(Field field)
     {
         List<Location> adjacent = field.getAdjacentLocations(getLocation());
@@ -135,10 +126,10 @@ public class Fox extends Animal
         while(foodLocation == null && it.hasNext()) {
             Location loc = it.next();
             Animal animal = field.getAnimalAt(loc);
-            if(animal instanceof Rabbit rabbit) {
-                if(rabbit.isAlive()) {
-                    rabbit.setDead();
-                    foodLevel = RABBIT_FOOD_VALUE;
+            if(animal instanceof Capybara capybara) {
+                if(capybara.isAlive()) {
+                    capybara.setDead();
+                    foodLevel = CAPYBARA_FOOD_VALUE;
                     foodLocation = loc;
                 }
             }
@@ -146,11 +137,7 @@ public class Fox extends Animal
         return foodLocation;
     }
     
-    /**
-     * Check whether this fox is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     * @param freeLocations The locations that are free in the current field.
-     */
+
     private void giveBirth(Field nextFieldState, List<Location> freeLocations)
     {
         // New foxes are born into adjacent locations.
@@ -159,17 +146,13 @@ public class Fox extends Animal
         if(births > 0) {
             for (int b = 0; b < births && ! freeLocations.isEmpty(); b++) {
                 Location loc = freeLocations.remove(0);
-                Fox young = new Fox(false, loc);
+                Wolf young = new Wolf(false, loc);
                 nextFieldState.placeAnimal(young, loc);
             }
         }
     }
         
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
+
     private int breed()
     {
         int births;
@@ -182,9 +165,7 @@ public class Fox extends Animal
         return births;
     }
 
-    /**
-     * A fox can breed if it has reached the breeding age.
-     */
+
     private boolean canBreed()
     {
         return age >= BREEDING_AGE;
