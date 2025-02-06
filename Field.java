@@ -78,6 +78,18 @@ public class Field
         }
         return free;
     }
+    //get list of animals in adjacent cells
+    public List<Animal> getAdjacentAnimals(Location location){
+        List<Animal> animals = new ArrayList<>();
+        List<Location> locations = new ArrayList<>();
+        locations = getAdjacentLocations(location);
+        for (int i = 0; i<locations.size(); i++){
+            if (getAnimalAt(locations.get(i)) instanceof Animal animal){
+                animals.add(animal);
+            }
+        }
+        return animals;
+    }
 
     /**
      * Return a shuffled list of locations adjacent to the given one.
