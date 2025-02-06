@@ -23,7 +23,7 @@ public class Simulator
 
     private static final double ANACONDA_CREATION_PROBABILITY = 0.03;
 
-    private static final double HERON_CREATION_PROBABILITY = 0.05;
+    private static final double HERON_CREATION_PROBABILITY = 0.03;
 
     // The current state of the field.
     private Field field;
@@ -132,14 +132,16 @@ public class Simulator
                 }
                 else if(rand.nextDouble() <= TIGER_CREATION_PROBABILITY ) {
                     Location location = new Location(row, col);
+                    int random = rand.nextInt(2);
                     Tiger tiger = new Tiger(true, location);
                     field.placeAnimal(tiger, location);
-                }
+                    }
                 else if(rand.nextDouble() <= CAPYBARA_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Capybara capybara = new Capybara(true, location);
                     field.placeAnimal(capybara, location);
                 }
+
                 else if(rand.nextDouble() <= ANACONDA_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Anaconda anaconda = new Anaconda(true, location);

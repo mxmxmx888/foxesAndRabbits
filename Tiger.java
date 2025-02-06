@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -5,23 +6,26 @@ import java.util.Random;
 public class Tiger extends Animal
 {
     private static final int BREEDING_AGE = 18;
-    private static final int MAX_AGE = 170;
-    private static final double BREEDING_PROBABILITY = 0.035;
+    private static final int MAX_AGE = 85;
+    private static final double BREEDING_PROBABILITY = 0.65;
     private static final int MAX_LITTER_SIZE = 4;
-    private static final int CAPYBARA_FOOD_VALUE = 8;
-    private static final int WOLF_FOOD_VALUE = 20;
+    private static final int CAPYBARA_FOOD_VALUE = 4;
+    private static final int WOLF_FOOD_VALUE = 10;
     private static final Random rand = Randomizer.getRandom();
     private int age, foodLevel;
+    private final boolean male;
 
     public Tiger(boolean randomAge, Location location) {
         super(location);
+        int random = rand.nextInt(2);
+        male = random != 0;
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
         }
         else {
             age = 0;
         }
-        foodLevel = rand.nextInt(CAPYBARA_FOOD_VALUE);
+        foodLevel = rand.nextInt(WOLF_FOOD_VALUE);
     }
 
     @Override
@@ -32,7 +36,7 @@ public class Tiger extends Animal
         if(isAlive()) {
             List<Location> freeLocations = nextFieldState.getFreeAdjacentLocations(getLocation());
             if(! freeLocations.isEmpty()) {
-                giveBirth(nextFieldState, freeLocations);
+                giveBirth(currentField , nextFieldState, freeLocations);
             }
             // Move towards a source of food if found.
             Location nextLocation = findFood(currentField);
@@ -100,7 +104,7 @@ public class Tiger extends Animal
             if(animal instanceof Capybara capybara) {
                 if(capybara.isAlive()) {
                     capybara.setDead();
-                    foodLevel = CAPYBARA_FOOD_VALUE;
+                    foodLevel = foodLevel + CAPYBARA_FOOD_VALUE;
                     foodLocation = loc;
                 }
             }
@@ -108,7 +112,7 @@ public class Tiger extends Animal
             {
                 if(wolf.isAlive()){
                     wolf.setDead();
-                    foodLevel = WOLF_FOOD_VALUE;
+                    foodLevel = foodLevel + WOLF_FOOD_VALUE;
                 }
             }
         }
@@ -120,18 +124,30 @@ public class Tiger extends Animal
      * New births will be made into free adjacent locations.
      * @param freeLocations The locations that are free in the current field.
      */
-    private void giveBirth(Field nextFieldState, List<Location> freeLocations)
+    private void giveBirth(Field currentField, Field nextFieldState, List<Location> freeLocations)
     {
-        // New foxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
-        int births = breed();
-        if(births > 0) {
-            for (int b = 0; b < births && ! freeLocations.isEmpty(); b++) {
-                Location loc = freeLocations.remove(0);
-                Tiger young = new Tiger(false, loc);
-                nextFieldState.placeAnimal(young, loc);
+        List<Animal> tigers = new ArrayList<>();
+        tigers = currentField.getAdjacentAnimals(this.getLocation());
+        for (int i=0; i< tigers.size(); i++)
+        {
+            if(tigers.get(i) instanceof Tiger tiger && tiger.isMale() && !this.isMale())
+            {
+                int births = breed();
+                if(births > 0) {
+                    for (int b = 0; b < births && ! freeLocations.isEmpty(); b++) {
+                        Location loc = freeLocations.remove(0);
+                        Tiger young = new Tiger(false, loc);
+                        nextFieldState.placeAnimal(young, loc);
+
+
+                    }
+                }
+
             }
         }
+        // New foxes are born into adjacent locations.
+        // Get a list of adjacent free locations.
+
     }
 
     /**
@@ -159,4 +175,7 @@ public class Tiger extends Animal
         return age >= BREEDING_AGE;
     }
 
+    private boolean isMale() {
+    return male;
+    }
 }

@@ -7,13 +7,13 @@ public class Heron extends Animal{
     private static final int BREEDING_AGE = 5;
 
     // The age to which a rabbit can live.
-    private static final int MAX_AGE = 25;
+    private static final int MAX_AGE = 27;
 
     // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.04;
+    private static final double BREEDING_PROBABILITY = 0.1;
 
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 4;
+    private static final int MAX_LITTER_SIZE = 3;
 
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();

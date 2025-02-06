@@ -8,16 +8,16 @@ public class Anaconda extends Animal
     // The age at which a fox can start to breed.
     private static final int BREEDING_AGE = 18;
     // The age to which a fox can live.
-    private static final int MAX_AGE = 150;
+    private static final int MAX_AGE = 75;
     // The likelihood of a fox breeding.
     private static final double BREEDING_PROBABILITY = 0.1;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 2;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int CAPYBARA_FOOD_VALUE = 8;
+    private static final int CAPYBARA_FOOD_VALUE = 4;
 
-    private static final int HERON_FOOD_VALUE = 5;
+    private static final int HERON_FOOD_VALUE = 2;
 
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
@@ -124,14 +124,14 @@ public class Anaconda extends Animal
             if(animal instanceof Capybara capybara) {
                 if(capybara.isAlive()) {
                     capybara.setDead();
-                    foodLevel = CAPYBARA_FOOD_VALUE;
+                    foodLevel = foodLevel + CAPYBARA_FOOD_VALUE;
                     foodLocation = loc;
                 }
             }
             else if (animal instanceof Heron heron) {
                 if (heron.isAlive()){
                     heron.setDead();
-                    foodLevel = HERON_FOOD_VALUE;
+                    foodLevel = foodLevel + HERON_FOOD_VALUE;
                     foodLocation = loc;
                 }
 
