@@ -48,24 +48,38 @@ public class Heron extends Animal{
     public void act(Field currentField, Field nextFieldState)
     {
         incrementAge();
-        if(isAlive()) {
-            List<Location> freeLocations =
-                    nextFieldState.getFreeAdjacentLocations(getLocation());
-            if(!freeLocations.isEmpty()) {
-                giveBirth(nextFieldState, freeLocations);
-            }
-            // Try to move into a free location.
-            if(! freeLocations.isEmpty()) {
-                Location nextLocation = freeLocations.get(0);
-                setLocation(nextLocation);
-                nextFieldState.placeAnimal(this, nextLocation);
-            }
-            else {
-                // Overcrowding.
-                setDead();
-            }
+        if (!isAlive()) {
+            return; // If dead, do nothing
         }
-    }
+
+        boolean isNight = Simulator.isNight();
+        // At night, only act (move/breed) with a 10% chance.
+        if (isNight && rand.nextDouble() >= 0.1) {
+            // 90% of the time at night, do nothing—but still remain in the same location.
+            nextFieldState.placeAnimal(this, getLocation());
+            return;
+        }
+
+        // Normal behavior (daytime or the 10% chance at night)
+        List<Location> freeLocations = nextFieldState.getFreeAdjacentLocations(getLocation());
+
+        // Attempt to breed if there is free space.
+        if (!freeLocations.isEmpty()) {
+            giveBirth(nextFieldState, freeLocations);
+        }
+
+        // Try to move into a free location.
+        if (!freeLocations.isEmpty()) {
+            Location nextLocation = freeLocations.get(0);
+            setLocation(nextLocation);
+            nextFieldState.placeAnimal(this, nextLocation);
+        }
+        else {
+            // Overcrowding: if no free location, mark as dead.
+            setDead();
+        }
+        }
+
 
     @Override
     public String toString() {
