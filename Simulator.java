@@ -25,6 +25,10 @@ public class Simulator
 
     private static final double HERON_CREATION_PROBABILITY = 0.03;
 
+    private static int hour;
+
+    private boolean isNight;
+
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
@@ -98,14 +102,28 @@ public class Simulator
         for (Animal anAnimal : animals) {
             anAnimal.act(field, nextFieldState);
         }
-        
+        hour = (hour + 1) % 24;
+
+        if (hour>= 18 || hour < 6) {
+            view.setNight(true);
+            isNight = true;
+        }
+        else {
+            view.setNight(false);
+            isNight = false;
+        }
+
         // Replace the old state with the new one.
         field = nextFieldState;
 
         reportStats();
         view.showStatus(step, field);
     }
-        
+
+    public static boolean isNight() {
+        return hour >= 18 || hour < 6;
+    }
+
     /**
      * Reset the simulation to a starting position.
      */

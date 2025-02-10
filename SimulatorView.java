@@ -32,6 +32,7 @@ public class SimulatorView extends JFrame
     // A statistics object computing and storing simulation information
     private final FieldStats stats;
 
+    private Color emptyColor = Color.white;
     /**
      * Create a view of the given width and height.
      * @param height The simulation's height.
@@ -61,6 +62,15 @@ public class SimulatorView extends JFrame
         contents.add(population, BorderLayout.SOUTH);
         pack();
         setVisible(true);
+    }
+    public void setNight (boolean isNight) {
+        if (isNight) {
+            fieldView.setBackground(Color.black);
+            emptyColor = Color.black;
+        } else {
+            fieldView.setBackground(Color.white);
+            emptyColor = Color.white;
+        }
     }
     
     /**
@@ -112,7 +122,7 @@ public class SimulatorView extends JFrame
                     fieldView.drawMark(col, row, getColor(animal.getClass()));
                 }
                 else {
-                    fieldView.drawMark(col, row, EMPTY_COLOR);
+                    fieldView.drawMark(col, row, emptyColor);
                 }
             }
         }
