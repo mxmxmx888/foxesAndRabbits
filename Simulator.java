@@ -169,6 +169,10 @@ public class Simulator
                     Location location = new Location(row, col);
                     Heron heron = new Heron(true, location);
                     field.placeAnimal(heron, location);
+
+                    if (rand.nextDouble() < 0.05) {
+                        heron.infect();
+                    }
                 }
                 // else leave the location empty.
             }

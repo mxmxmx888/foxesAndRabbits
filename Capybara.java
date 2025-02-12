@@ -56,6 +56,12 @@ public class Capybara extends Animal
     public void act(Field currentField, Field nextFieldState)
     {
         incrementAge();
+        riskDisease();
+        if (!isAlive()) {
+            return;
+        }
+        spreadDisease(currentField);
+
         if(isAlive()) {
             List<Location> freeLocations = 
                 nextFieldState.getFreeAdjacentLocations(getLocation());
@@ -67,6 +73,7 @@ public class Capybara extends Animal
                 Location nextLocation = freeLocations.get(0);
                 setLocation(nextLocation);
                 nextFieldState.placeAnimal(this, nextLocation);
+
             }
             else {
                 // Overcrowding.

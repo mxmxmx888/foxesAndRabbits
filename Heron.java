@@ -48,6 +48,12 @@ public class Heron extends Animal{
     public void act(Field currentField, Field nextFieldState)
     {
         incrementAge();
+        riskDisease();
+        if (!isAlive()) {
+            return;
+        }
+        spreadDisease(currentField);
+
         if (!isAlive()) {
             return; // If dead, do nothing
         }
