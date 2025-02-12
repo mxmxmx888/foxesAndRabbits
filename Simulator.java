@@ -120,6 +120,7 @@ public class Simulator
 
         reportStats();
         view.showStatus(step, field);
+        delay(1);
     }
 
     public static boolean isNight() {
@@ -181,6 +182,7 @@ public class Simulator
                         Location location = new Location(row, col);
                         Heron heron = new Heron(true, location);
                         field.placeAnimal(heron, location);
+
                     }
                 }
                 // else leave the location empty.

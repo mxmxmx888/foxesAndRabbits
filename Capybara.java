@@ -19,7 +19,7 @@ public class Capybara extends Animal
     private static final int MAX_AGE = 40;
     
     // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.55;
+    private static final double BREEDING_PROBABILITY = 0.52;
     
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 4;
@@ -167,9 +167,9 @@ public class Capybara extends Animal
         while(foodLocation == null && it.hasNext()) {
             Location loc = it.next();
             Animal animal = field.getAnimalAt(loc);
-            if(animal instanceof Capybara capybara) {
-                if(capybara.isAlive()) {
-                    capybara.setDead();
+            if(animal instanceof Grass grass) {
+                if(grass.isAlive()) {
+                    grass.setDead();
                     foodLevel = foodLevel + GRASS_FOOD_VALUE;
                     foodLocation = loc;
                 }
