@@ -104,23 +104,29 @@ public class SimulatorView extends JFrame
      * @param step Which iteration step it is.
      * @param field The field whose status is to be displayed.
      */
-    public void showStatus(int step, Field field)
-    {
-        if(!isVisible()) {
+    public void showStatus(int step, Field field) {
+        if (!isVisible()) {
             setVisible(true);
         }
-            
+
         stepLabel.setText(STEP_PREFIX + step);
         stats.reset();
-        
         fieldView.preparePaint();
 
-        for(int row = 0; row < field.getDepth(); row++) {
-            for(int col = 0; col < field.getWidth(); col++) {
-                Object animal = field.getAnimalAt(new Location(row, col));
-                if(animal != null) {
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+                Animal animal = field.getAnimalAt(new Location(row, col)); //
+
+                if (animal != null) {
                     stats.incrementCount(animal.getClass());
-                    fieldView.drawMark(col, row, getColor(animal.getClass()));
+
+
+                    Color animalColor = getColor(animal.getClass());
+                    if (animal.isInfected()) {
+                        animalColor = Color.MAGENTA; // 🟣 Change color to purple if infected
+                    }
+
+                    fieldView.drawMark(col, row, animalColor); //
                 }
                 else {
                     fieldView.drawMark(col, row, emptyColor);

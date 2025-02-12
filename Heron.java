@@ -48,9 +48,11 @@ public class Heron extends Animal{
     public void act(Field currentField, Field nextFieldState)
     {
         incrementAge();
+        riskDisease();
         if (!isAlive()) {
-            return; // If dead, do nothing
+            return;
         }
+        spreadDisease(currentField);
 
         boolean isNight = Simulator.isNight();
         // At night, only act (move/breed) with a 10% chance.
