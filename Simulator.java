@@ -120,6 +120,7 @@ public class Simulator
 
         reportStats();
         view.showStatus(step, field);
+        delay(1);
     }
 
     public static boolean isNight() {

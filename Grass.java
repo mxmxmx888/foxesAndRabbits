@@ -7,10 +7,10 @@ public class Grass extends Animal
     // The age at which a rabbit can start to breed.
     private static final int BREEDING_AGE = 8;
     // The age to which a rabbit can live.
-    private static final int MAX_AGE = 40;
+    private static final int MAX_AGE = 20;
 
     // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.69;
+    private static final double BREEDING_PROBABILITY = 0.6;
 
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 2;
@@ -37,13 +37,17 @@ public class Grass extends Animal
      */
     public void act(Field currentField, Field nextFieldState)
     {
-        if(isAlive()) {
-            List<Location> freeLocations = nextFieldState.getFreeAdjacentLocations(getLocation());
-           if (rand.nextDouble()<= BREEDING_PROBABILITY)
-           {// Grass only spreads, it doesn't move
-               giveBirth(nextFieldState, freeLocations);
-           }
-        }
+
+            if(isAlive()) {
+                List<Location> freeLocations = nextFieldState.getFreeAdjacentLocations(getLocation());
+                if (rand.nextDouble() <= BREEDING_PROBABILITY) {
+                    // Grass only spreads, it doesn't move
+                    giveBirth(nextFieldState, freeLocations);
+                }
+
+                // Ensure Grass stays in the same place
+                nextFieldState.placeAnimal(this, getLocation());
+            }
 
     }
 
@@ -107,5 +111,10 @@ public class Grass extends Animal
     private boolean canBreed()
     {
         return age >= BREEDING_AGE;
+    }
+
+    @Override
+    protected void setLocation(Location location) {
+        // Grass cannot move, so do nothing
     }
 }

@@ -6,8 +6,8 @@ import java.util.Random;
 public class Tiger extends Animal
 {
     private static final int BREEDING_AGE = 12;
-    private static final int MAX_AGE = 85;
-    private static final double BREEDING_PROBABILITY = 0.8;
+    private static final int MAX_AGE = 65;
+    private static final double BREEDING_PROBABILITY = 0.3;
     private static final int MAX_LITTER_SIZE = 4;
     private static final int CAPYBARA_FOOD_VALUE = 12;
     private static final int WOLF_FOOD_VALUE = 20;
