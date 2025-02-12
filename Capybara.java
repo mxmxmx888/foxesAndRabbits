@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -12,16 +13,18 @@ public class Capybara extends Animal
 {
     // Characteristics shared by all rabbits (class variables).
     // The age at which a rabbit can start to breed.
-    private static final int BREEDING_AGE = 5;
+    private static final int BREEDING_AGE = 3;
     
     // The age to which a rabbit can live.
     private static final int MAX_AGE = 40;
     
     // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.2;
+    private static final double BREEDING_PROBABILITY = 0.55;
     
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 4;
+
+    private static final int GRASS_FOOD_VALUE = 20;
     
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
@@ -30,6 +33,8 @@ public class Capybara extends Animal
     
     // The rabbit's age.
     private int age;
+
+    private int foodLevel;
 
     /**
      * Create a new rabbit. A rabbit may be created with age
@@ -45,6 +50,7 @@ public class Capybara extends Animal
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
         }
+        foodLevel = rand.nextInt(GRASS_FOOD_VALUE);
     }
     
     /**
@@ -56,15 +62,20 @@ public class Capybara extends Animal
     public void act(Field currentField, Field nextFieldState)
     {
         incrementAge();
+        incrementHunger();
         if(isAlive()) {
-            List<Location> freeLocations = 
-                nextFieldState.getFreeAdjacentLocations(getLocation());
-            if(!freeLocations.isEmpty()) {
+            List<Location> freeLocations = nextFieldState.getFreeAdjacentLocations(getLocation());
+            if(! freeLocations.isEmpty()) {
                 giveBirth(nextFieldState, freeLocations);
             }
-            // Try to move into a free location.
-            if(! freeLocations.isEmpty()) {
-                Location nextLocation = freeLocations.get(0);
+            // Move towards a source of food if found.
+            Location nextLocation = findFood(currentField);
+            if(nextLocation == null && ! freeLocations.isEmpty()) {
+                // No food found - try to move to a free location.
+                nextLocation = freeLocations.remove(0);
+            }
+            // See if it was possible to move.
+            if(nextLocation != null) {
                 setLocation(nextLocation);
                 nextFieldState.placeAnimal(this, nextLocation);
             }
@@ -139,5 +150,31 @@ public class Capybara extends Animal
     private boolean canBreed()
     {
         return age >= BREEDING_AGE;
+    }
+
+    private void incrementHunger()
+    {
+        foodLevel--;
+        if(foodLevel <= 0) {
+            setDead();
+        }
+    }
+    private Location findFood(Field field)
+    {
+        List<Location> adjacent = field.getAdjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        Location foodLocation = null;
+        while(foodLocation == null && it.hasNext()) {
+            Location loc = it.next();
+            Animal animal = field.getAnimalAt(loc);
+            if(animal instanceof Capybara capybara) {
+                if(capybara.isAlive()) {
+                    capybara.setDead();
+                    foodLevel = foodLevel + GRASS_FOOD_VALUE;
+                    foodLocation = loc;
+                }
+            }
+        }
+        return foodLocation;
     }
 }

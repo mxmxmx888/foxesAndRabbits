@@ -5,12 +5,13 @@ import java.util.Random;
 
 public class Tiger extends Animal
 {
-    private static final int BREEDING_AGE = 18;
+    private static final int BREEDING_AGE = 12;
     private static final int MAX_AGE = 85;
-    private static final double BREEDING_PROBABILITY = 0.65;
+    private static final double BREEDING_PROBABILITY = 0.8;
     private static final int MAX_LITTER_SIZE = 4;
-    private static final int CAPYBARA_FOOD_VALUE = 4;
-    private static final int WOLF_FOOD_VALUE = 10;
+    private static final int CAPYBARA_FOOD_VALUE = 12;
+    private static final int WOLF_FOOD_VALUE = 20;
+    private static final int HERON_FOOD_VALUE = 8;
     private static final Random rand = Randomizer.getRandom();
     private int age, foodLevel;
     private final boolean male;
@@ -113,6 +114,20 @@ public class Tiger extends Animal
                 if(wolf.isAlive()){
                     wolf.setDead();
                     foodLevel = foodLevel + WOLF_FOOD_VALUE;
+                }
+            }
+            else if (animal instanceof Heron heron)
+            {
+                if(heron.isAlive()){
+                    heron.setDead();
+                    foodLevel = foodLevel + HERON_FOOD_VALUE;
+                }
+            }
+            else if (animal instanceof Grass grass)
+            {
+                if(grass.isAlive()){
+                    grass.setDead();
+
                 }
             }
         }

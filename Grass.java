@@ -1,42 +1,32 @@
 import java.util.List;
 import java.util.Random;
 
-public class Heron extends Animal{
+public class Grass extends Animal
+{
     // Characteristics shared by all rabbits (class variables).
     // The age at which a rabbit can start to breed.
     private static final int BREEDING_AGE = 8;
-
     // The age to which a rabbit can live.
-    private static final int MAX_AGE = 22;
+    private static final int MAX_AGE = 40;
 
     // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.17;
+    private static final double BREEDING_PROBABILITY = 0.69;
 
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 3;
+    private static final int MAX_LITTER_SIZE = 2;
 
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
 
     // Individual characteristics (instance fields).
-
-    // The rabbit's age.
     private int age;
 
-    /**
-     * Create a new rabbit. A rabbit may be created with age
-     * zero (a new born) or with a random age.
-     *
-     * @param randomAge If true, the rabbit will have a random age.
-     * @param location The location within the field.
-     */
-    public Heron(boolean randomAge, Location location)
+
+    public Grass(Location location)
     {
         super(location);
-        age = 0;
-        if(randomAge) {
-            age = rand.nextInt(MAX_AGE);
-        }
+        age = MAX_AGE;
+
     }
 
     /**
@@ -47,43 +37,19 @@ public class Heron extends Animal{
      */
     public void act(Field currentField, Field nextFieldState)
     {
-        incrementAge();
-        if (!isAlive()) {
-            return; // If dead, do nothing
+        if(isAlive()) {
+            List<Location> freeLocations = nextFieldState.getFreeAdjacentLocations(getLocation());
+           if (rand.nextDouble()<= BREEDING_PROBABILITY)
+           {// Grass only spreads, it doesn't move
+               giveBirth(nextFieldState, freeLocations);
+           }
         }
 
-        boolean isNight = Simulator.isNight();
-        // At night, only act (move/breed) with a 10% chance.
-        if (isNight && rand.nextDouble() >= 0.1) {
-            // 90% of the time at night, do nothing—but still remain in the same location.
-            nextFieldState.placeAnimal(this, getLocation());
-            return;
-        }
-
-        // Normal behavior (daytime or the 10% chance at night)
-        List<Location> freeLocations = nextFieldState.getFreeAdjacentLocations(getLocation());
-
-        // Attempt to breed if there is free space.
-        if (!freeLocations.isEmpty()) {
-            giveBirth(nextFieldState, freeLocations);
-        }
-
-        // Try to move into a free location.
-        if (!freeLocations.isEmpty()) {
-            Location nextLocation = freeLocations.get(0);
-            setLocation(nextLocation);
-            nextFieldState.placeAnimal(this, nextLocation);
-        }
-        else {
-            // Overcrowding: if no free location, mark as dead.
-            setDead();
-        }
-        }
-
+    }
 
     @Override
     public String toString() {
-        return "Heron{" +
+        return "Grass{" +
                 "age=" + age +
                 ", alive=" + isAlive() +
                 ", location=" + getLocation() +
@@ -115,8 +81,8 @@ public class Heron extends Animal{
         if(births > 0) {
             for (int b = 0; b < births && !freeLocations.isEmpty(); b++) {
                 Location loc = freeLocations.remove(0);
-                Heron young = new Heron(false, loc);
-                nextFieldState.placeAnimal(young, loc);
+                Grass newgrass = new Grass(loc);
+                nextFieldState.placeAnimal(newgrass, loc);
             }
         }
     }
@@ -129,12 +95,8 @@ public class Heron extends Animal{
     private int breed()
     {
         int births;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        else {
-            births = 0;
-        }
+        births = rand.nextInt(MAX_LITTER_SIZE) + 1;
+
         return births;
     }
 
