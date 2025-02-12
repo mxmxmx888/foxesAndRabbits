@@ -17,13 +17,13 @@ public class Wolf extends Animal
     // The age to which a fox can live.
     private static final int MAX_AGE = 75;
     // The likelihood of a fox breeding.
-    private static final double BREEDING_PROBABILITY = 0.08;
+    private static final double BREEDING_PROBABILITY = 0.13;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 2;
+    private static final int MAX_LITTER_SIZE = 3;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int CAPYBARA_FOOD_VALUE = 6;
-    private static final int HERON_FOOD_VALUE = 4;
+    private static final int CAPYBARA_FOOD_VALUE = 12;
+    private static final int HERON_FOOD_VALUE = 8;
 
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
@@ -138,6 +138,13 @@ public class Wolf extends Animal
                     heron.setDead();
                     foodLevel = foodLevel + HERON_FOOD_VALUE;
                     foodLocation = loc;
+                }
+            }
+            else if (animal instanceof Grass grass)
+            {
+                if(grass.isAlive()){
+                    grass.setDead();
+
                 }
             }
         }

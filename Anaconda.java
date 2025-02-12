@@ -6,18 +6,18 @@ public class Anaconda extends Animal
 {
     // Characteristics shared by all foxes (class variables).c
     // The age at which a fox can start to breed.
-    private static final int BREEDING_AGE = 18;
+    private static final int BREEDING_AGE = 10;
     // The age to which a fox can live.
-    private static final int MAX_AGE = 75;
+    private static final int MAX_AGE = 55;
     // The likelihood of a fox breeding.
-    private static final double BREEDING_PROBABILITY = 0.1;
+    private static final double BREEDING_PROBABILITY = 0.16;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 2;
+    private static final int MAX_LITTER_SIZE = 3;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int CAPYBARA_FOOD_VALUE = 4;
+    private static final int CAPYBARA_FOOD_VALUE = 10;
 
-    private static final int HERON_FOOD_VALUE = 2;
+    private static final int HERON_FOOD_VALUE = 8;
 
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();

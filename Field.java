@@ -130,21 +130,40 @@ public class Field
      */
     public void fieldStats()
     {
-        int numFoxes = 0, numRabbits = 0;
+        int numWolfs= 0, numCapybaras = 0, numTigers = 0, numAnacondas = 0, numGrass = 0, numHerons = 0;
         for(Animal anAnimal : field.values()) {
             if(anAnimal instanceof Wolf wolf) {
                 if(wolf.isAlive()) {
-                    numFoxes++;
+                    numWolfs++;
                 }
             }
             else if(anAnimal instanceof Capybara capybara) {
                 if(capybara.isAlive()) {
-                    numRabbits++;
+                    numCapybaras++;
+                }
+            }
+            else if(anAnimal instanceof Tiger tiger) {
+                if(tiger.isAlive()) {
+                    numTigers++;
+                }
+            }
+            else if(anAnimal instanceof Anaconda anaconda) {
+                if(anaconda.isAlive()) {
+                    numAnacondas++;
+                }
+            }
+            else if(anAnimal instanceof Grass grass) {
+                if (grass.isAlive()) {
+                    numGrass++;
+                }
+            }
+            else if(anAnimal instanceof Heron heron) {
+                if (heron.isAlive()) {
+                    numHerons++;
                 }
             }
         }
-        System.out.println(":Capybaras: " + numRabbits +
-                           " Foxes: " + numFoxes);
+        System.out.println(":Capybaras: " + numCapybaras + " Wolfs: " + numWolfs + " Anacondas: " + numAnacondas + " Tigers: " + numTigers + " Grass: " + numGrass + " Herons: " + numHerons )  ;
     }
 
     /**
@@ -163,6 +182,7 @@ public class Field
     {
         boolean rabbitFound = false;
         boolean foxFound = false;
+        boolean bool = true;
         Iterator<Animal> it = animals.iterator();
         while(it.hasNext() && ! (rabbitFound && foxFound)) {
             Animal anAnimal = it.next();
@@ -177,7 +197,7 @@ public class Field
                 }
             }
         }
-        return rabbitFound && foxFound;
+        return bool;
     }
     
     /**
