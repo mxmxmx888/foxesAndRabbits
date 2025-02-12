@@ -181,6 +181,7 @@ public class Simulator
                         Location location = new Location(row, col);
                         Heron heron = new Heron(true, location);
                         field.placeAnimal(heron, location);
+
                     }
                 }
                 // else leave the location empty.
