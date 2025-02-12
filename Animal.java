@@ -1,3 +1,5 @@
+import java.util.List;
+import java.util.Random;
 
 /**
  * Common elements of foxes and rabbits.
@@ -12,6 +14,9 @@ public abstract class Animal
     // The animal's position.
     private Location location;
 
+    private boolean infected;
+    private static Random rand = new Random();
+
     /**
      * Constructor for objects of class Animal.
      * @param location The animal's location.
@@ -20,6 +25,7 @@ public abstract class Animal
     {
         this.alive = true;
         this.location = location;
+        this.infected = false;
     }
     
     /**
@@ -46,7 +52,25 @@ public abstract class Animal
         alive = false;
         location = null;
     }
-    
+
+    public boolean isInfected(){
+        return infected;
+    }
+
+    public void infect() {
+        infected = true;
+    }
+
+    public void riskDisease(){
+        if (infected) {
+            if (rand.nextDouble() < 0.25) {
+
+                setDead();
+            }
+        }
+    }
+
+
     /**
      * Return the animal's location.
      * @return The animal's location.
@@ -63,5 +87,16 @@ public abstract class Animal
     protected void setLocation(Location location)
     {
         this.location = location;
+    }
+    public void spreadDisease(Field currentField){
+        if (infected) {
+            List<Location> adjacentLocations = currentField.getAdjacentLocations(getLocation());
+            for (Location loc : adjacentLocations) {
+                Animal nearby = currentField.getAnimalAt(loc);
+                if (nearby != null && !nearby.isInfected() && rand.nextDouble() < 0.2) { // 20% chance to spread
+                    nearby.infect();
+                }
+            }
+        }
     }
 }
