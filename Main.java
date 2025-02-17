@@ -3,8 +3,8 @@ public class Main {
     private Simulator simulator;
 
     public static void main(String[] args) {
-        Main mainProgram = new Main();  // Create an instance of Main
-        mainProgram.start();            // Start the program
+        Main mainProgram = new Main();
+        mainProgram.start();
     }
 
     private void start() {
