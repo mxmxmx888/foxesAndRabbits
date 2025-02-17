@@ -8,9 +8,6 @@ public class Grass extends Animal
     // the age at which a grass can start to spread
     private static final int BREEDING_AGE = 8;
 
-    // the age to which a grass can live
-    private static final int MAX_AGE = 20;
-
     // the likelihood of grass spreading
     private static final double BREEDING_PROBABILITY = 0.6;
 
@@ -31,7 +28,10 @@ public class Grass extends Animal
 
     }
 
-
+    /**
+     * method is responsible for the way grass act
+     * basically, it just grows and spreads
+     */
     public void act(Field currentField, Field nextFieldState)
     {
             //
@@ -42,7 +42,7 @@ public class Grass extends Animal
                     giveBirth(nextFieldState, freeLocations);
                 }
 
-                // Ensure Grass stays in the same place
+                // ensure that grass stays in the same place
                 nextFieldState.placeAnimal(this, getLocation());
             }
 
@@ -66,10 +66,10 @@ public class Grass extends Animal
      */
     private void giveBirth(Field nextFieldState, List<Location> freeLocations)
     {
-        // New rabbits are born into adjacent locations.
-        // Get a list of adjacent free locations.
+        // new grass grows in adjacent locations
         int births = breed();
         if(births > 0) {
+
             for (int b = 0; b < births && !freeLocations.isEmpty(); b++) {
                 Location loc = freeLocations.remove(0);
                 Grass newgrass = new Grass(loc);
