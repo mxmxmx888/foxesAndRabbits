@@ -59,6 +59,11 @@ public class Anaconda extends Animal
     {
         incrementAge();
         incrementHunger();
+        riskDisease();
+        if (!isAlive()) {
+            return;
+        }
+        spreadDisease(currentField);
         if(isAlive()) {
             List<Location> freeLocations = nextFieldState.getFreeAdjacentLocations(getLocation());
             if(! freeLocations.isEmpty()) {
