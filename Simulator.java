@@ -146,8 +146,14 @@ public class Simulator
         field.clear();
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++)
+            /**
+             * method was adjusted in a way so that
+             * some acting species can only spawn
+             * in even cells and other only in odd cells
+             */
             {
                 if (col%2==0) {
+                    // wolfs/tigers/grass spawn in even cells
                     if (rand.nextDouble() <= WOLF_CREATION_PROBABILITY) {
                         Location location = new Location(row, col);
                         Wolf wolf = new Wolf(true, location);
@@ -167,6 +173,7 @@ public class Simulator
 
                 }
                 else{
+                    //spawns capybaras/anacondas/herons
                     if (rand.nextDouble() <= CAPYBARA_CREATION_PROBABILITY) {
                         Location location = new Location(row, col);
                         Capybara capybara = new Capybara(true, location);
