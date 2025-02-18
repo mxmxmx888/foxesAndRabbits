@@ -2,35 +2,34 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
 
-/**
- * A simple model of a fox.
- * Foxes age, move, eat rabbits, and die.
- * 
- * @author David J. Barnes and Michael Kölling
- * @version 7.1
- */
+
 public class Wolf extends Animal
 {
-    // Characteristics shared by all foxes (class variables).c
-    // The age at which a fox can start to breed.
+
+    // The age at which a wolf can start to breed
     private static final int BREEDING_AGE = 12;
-    // The age to which a fox can live.
+
+    // The age to which a wolf can live
     private static final int MAX_AGE = 75;
-    // The likelihood of a fox breeding.
+
+    // the likelihood of a wolf breeding
     private static final double BREEDING_PROBABILITY = 0.27;
-    // The maximum number of births.
+
+    // the maximum number of births
     private static final int MAX_LITTER_SIZE = 3;
-    // The food value of a single rabbit. In effect, this is the
-    // number of steps a fox can go before it has to eat again.
+
+    // the food value of a single capybara
     private static final int CAPYBARA_FOOD_VALUE = 12;
+
+    //food value of a single heron
     private static final int HERON_FOOD_VALUE = 8;
 
-    // A shared random number generator to control breeding.
+    // a shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     
-    // Individual characteristics (instance fields).
+    // Individual characteristics (instance fields)
 
-    // The fox's age.
+    // wolf's age
     private int age;
     // The fox's food level, which is increased by eating rabbits.
     private int foodLevel;
@@ -63,6 +62,7 @@ public class Wolf extends Animal
      */
     public void act(Field currentField, Field nextFieldState)
     {
+        //increment hunger and age of the wolf as it grows
         incrementAge();
         incrementHunger();
         riskDisease();
@@ -75,13 +75,13 @@ public class Wolf extends Animal
             if(! freeLocations.isEmpty()) {
                 giveBirth(nextFieldState, freeLocations);
             }
-            // Move towards a source of food if found.
+            // Move towards a source of food if found.]
             Location nextLocation = findFood(currentField);
             if(nextLocation == null && ! freeLocations.isEmpty()) {
                 // No food found - try to move to a free location.
                 nextLocation = freeLocations.remove(0);
             }
-            // See if it was possible to move.
+            // See if it was possible to move
             if(nextLocation != null) {
                 setLocation(nextLocation);
                 nextFieldState.placeAnimal(this, nextLocation);
@@ -132,12 +132,14 @@ public class Wolf extends Animal
         while(foodLocation == null && it.hasNext()) {
             Location loc = it.next();
             Animal animal = field.getAnimalAt(loc);
+            //if capybara is found by wolf increase its food level by CAPYBARA_FOOD_VALUE
             if(animal instanceof Capybara capybara) {
                 if(capybara.isAlive()) {
                     capybara.setDead();
                     foodLevel = foodLevel + CAPYBARA_FOOD_VALUE;
                     foodLocation = loc;
                 }
+                //if heron is found by wolf increase its food evel by HERON_FOOD_VALUE
             }else if (animal instanceof Heron heron){
                 if(heron.isAlive()) {
                     heron.setDead();
@@ -145,6 +147,11 @@ public class Wolf extends Animal
                     foodLocation = loc;
                 }
             }
+            /**
+             * wolf can step on grass and destroy it but not it
+             * it was done so that animals dont get trapped by
+             * grass when it surrounds them
+             */
             else if (animal instanceof Grass grass)
             {
                 if(grass.isAlive()){
@@ -159,7 +166,7 @@ public class Wolf extends Animal
 
     private void giveBirth(Field nextFieldState, List<Location> freeLocations)
     {
-        // New foxes are born into adjacent locations.
+        // new wolfs are born into adjacent locations.
         // Get a list of adjacent free locations.
         int births = breed();
         if(births > 0) {

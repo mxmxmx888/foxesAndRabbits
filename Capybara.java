@@ -2,47 +2,37 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-/**
- * A simple model of a rabbit.
- * Rabbits age, move, breed, and die.
- * 
- * @author David J. Barnes and Michael Kölling
- * @version 7.1
- */
+
 public class Capybara extends Animal
 {
-    // characteristics shared by all rabbits (class variables).
-    // the age at which a rabbit can start to breed.
+    // characteristics shared by all capybaras (class variables).
+    // the age at which a capybaras can start to breed.
     private static final int BREEDING_AGE = 3;
     
-    // the age to which a rabbit can live.
+    // the age to which a capybara can live.
     private static final int MAX_AGE = 40;
     
-    // the likelihood of a rabbit breeding.
+    // the likelihood of a capybara breeding.
     private static final double BREEDING_PROBABILITY = 0.44;
     
     // the maximum number of births.
     private static final int MAX_LITTER_SIZE = 4;
 
+    //food value of a single grass location
     private static final int GRASS_FOOD_VALUE = 20;
     
-    // a shared random number generator to control breeding.
+    //a shared random number generator to control breeding
     private static final Random rand = Randomizer.getRandom();
     
 
     
-    // The rabbit's age.
+    // The capybara's age.
     private int age;
 
+    //capybara's food level
     private int foodLevel;
 
-    /**
-     * Create a new rabbit. A rabbit may be created with age
-     * zero (a new born) or with a random age.
-     * 
-     * @param randomAge If true, the rabbit will have a random age.
-     * @param location The location within the field.
-     */
+
     public Capybara(boolean randomAge, Location location)
     {
         super(location);
@@ -61,6 +51,7 @@ public class Capybara extends Animal
      */
     public void act(Field currentField, Field nextFieldState)
     {
+        //increment age and hunger of capybara
         incrementAge();
         incrementHunger();
         riskDisease();
@@ -73,19 +64,19 @@ public class Capybara extends Animal
             if(! freeLocations.isEmpty()) {
                 giveBirth(nextFieldState, freeLocations);
             }
-            // Move towards a source of food if found.
+            // Move towards a source of food if found
             Location nextLocation = findFood(currentField);
             if(nextLocation == null && ! freeLocations.isEmpty()) {
                 // No food found - try to move to a free location.
                 nextLocation = freeLocations.remove(0);
             }
-            // See if it was possible to move.
+            // See if it was possible to move
             if(nextLocation != null) {
                 setLocation(nextLocation);
                 nextFieldState.placeAnimal(this, nextLocation);
             }
             else {
-                // Overcrowding.
+                // Overcrowding
                 setDead();
             }
         }
@@ -100,10 +91,7 @@ public class Capybara extends Animal
                 '}';
     }
 
-    /**
-     * Increase the age.
-     * This could result in the rabbit's death.
-     */
+    //increasing
     private void incrementAge()
     {
         age++;
@@ -113,7 +101,7 @@ public class Capybara extends Animal
     }
     
     /**
-     * Check whether or not this rabbit is to give birth at this step.
+     * Check whether or not this capybara is to give birth at this step.
      * New births will be made into free adjacent locations.
      * @param freeLocations The locations that are free in the current field.
      */
@@ -131,11 +119,7 @@ public class Capybara extends Animal
         }
     }
         
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
+
     private int breed()
     {
         int births;
@@ -148,15 +132,12 @@ public class Capybara extends Animal
         return births;
     }
 
-    /**
-     * A rabbit can breed if it has reached the breeding age.
-     * @return true if the rabbit can breed, false otherwise.
-     */
+    // checks whether capybara can breed or not
     private boolean canBreed()
     {
         return age >= BREEDING_AGE;
     }
-
+    //increments hunger
     private void incrementHunger()
     {
         foodLevel--;

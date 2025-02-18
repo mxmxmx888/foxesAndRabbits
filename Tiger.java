@@ -5,14 +5,29 @@ import java.util.Random;
 
 public class Tiger extends Animal
 {
+    // age  at which tiger can start breeding
     private static final int BREEDING_AGE = 12;
+    //maximum age of the tiger
     private static final int MAX_AGE = 65;
+
+    // breeding probability
     private static final double BREEDING_PROBABILITY = 0.3;
+
+    // maximum number of births
     private static final int MAX_LITTER_SIZE = 4;
+
+    //food value of a single capybara
     private static final int CAPYBARA_FOOD_VALUE = 12;
+
+    // food value of a single wolf
     private static final int WOLF_FOOD_VALUE = 20;
+
+    // food value of a single heron
     private static final int HERON_FOOD_VALUE = 8;
+
+
     private static final Random rand = Randomizer.getRandom();
+
     private int age, foodLevel;
     private final boolean male;
 
@@ -32,6 +47,7 @@ public class Tiger extends Animal
     @Override
     public void act(Field currentField, Field nextFieldState)
     {
+        //increment age and hunger of the tiger
         incrementAge();
         incrementHunger();
         riskDisease();
@@ -44,19 +60,19 @@ public class Tiger extends Animal
             if(! freeLocations.isEmpty()) {
                 giveBirth(currentField , nextFieldState, freeLocations);
             }
-            // Move towards a source of food if found.
+            // Move towards a source of food if found
             Location nextLocation = findFood(currentField);
             if(nextLocation == null && ! freeLocations.isEmpty()) {
                 // No food found - try to move to a free location.
                 nextLocation = freeLocations.remove(0);
             }
-            // See if it was possible to move.
+            // See if it was possible to move
             if(nextLocation != null) {
                 setLocation(nextLocation);
                 nextFieldState.placeAnimal(this, nextLocation);
             }
             else {
-                // Overcrowding.
+                // Overcrowding
                 setDead();
             }
         }
@@ -71,9 +87,7 @@ public class Tiger extends Animal
                 '}';
     }
 
-    /**
-     * Increase the age. This could result in the fox's death.
-     */
+    //increment age of the tiger
     private void incrementAge()
     {
         age++;
@@ -82,9 +96,7 @@ public class Tiger extends Animal
         }
     }
 
-    /**
-     * Make this fox more hungry. This could result in the fox's death.
-     */
+    //increment hunger of the tiger
     private void incrementHunger()
     {
         foodLevel--;
@@ -93,12 +105,7 @@ public class Tiger extends Animal
         }
     }
 
-    /**
-     * Look for rabbits adjacent to the current location.
-     * Only the first live rabbit is eaten.
-     * @param field The field currently occupied.
-     * @return Where food was found, or null if it wasn't.
-     */
+
     private Location findFood(Field field)
     {
         List<Location> adjacent = field.getAdjacentLocations(getLocation());
@@ -139,11 +146,7 @@ public class Tiger extends Animal
         return foodLocation;
     }
 
-    /**
-     * Check whether this fox is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     * @param freeLocations The locations that are free in the current field.
-     */
+
     private void giveBirth(Field currentField, Field nextFieldState, List<Location> freeLocations)
     {
         List<Animal> tigers = new ArrayList<>();
@@ -165,16 +168,11 @@ public class Tiger extends Animal
 
             }
         }
-        // New foxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
+
 
     }
 
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
+
     private int breed()
     {
         int births;
@@ -187,15 +185,14 @@ public class Tiger extends Animal
         return births;
     }
 
-    /**
-     * A fox can breed if it has reached the breeding age.
-     */
     private boolean canBreed()
     {
         return age >= BREEDING_AGE;
     }
 
-    private boolean isMale() {
+    //return true if tiger is male and false if not
+    private boolean isMale()
+    {
     return male;
     }
 }
