@@ -126,7 +126,7 @@ public class Field
     }
 
     /**
-     * Print out the number of foxes and rabbits in the field.
+     * prints out number of each type of the acting species
      */
     public void fieldStats()
     {
@@ -180,24 +180,48 @@ public class Field
      */
     public boolean isViable()
     {
-        boolean rabbitFound = false;
-        boolean foxFound = false;
+        boolean capybaraFound = false;
+        boolean wolfFound = false;
+        boolean condaFound = false;
+        boolean heronFound = false;
+        boolean grassFound = false;
+        boolean tigerFound = false;
         boolean bool = true;
         Iterator<Animal> it = animals.iterator();
-        while(it.hasNext() && ! (rabbitFound && foxFound)) {
+        while(it.hasNext() && ! (capybaraFound && wolfFound && condaFound && heronFound && grassFound && tigerFound)) {
             Animal anAnimal = it.next();
             if(anAnimal instanceof Capybara capybara) {
                 if(capybara.isAlive()) {
-                    rabbitFound = true;
+                    capybaraFound = true;
                 }
             }
             else if(anAnimal instanceof Wolf wolf) {
                 if(wolf.isAlive()) {
-                    foxFound = true;
+                    wolfFound = true;
+                }
+            }
+            else if(anAnimal instanceof Anaconda anaconda) {
+                if(anaconda.isAlive()) {
+                    condaFound = true;
+                }
+            }
+            else if(anAnimal instanceof Heron heron) {
+                if(heron.isAlive()) {
+                    heronFound = true;
+                }
+            }
+            else if(anAnimal instanceof Grass grass) {
+                if(grass.isAlive()) {
+                    grassFound = true;
+                }
+            }
+            else if(anAnimal instanceof Tiger tiger) {
+                if(tiger.isAlive()) {
+                    tigerFound = true;
                 }
             }
         }
-        return bool;
+        return capybaraFound && wolfFound && condaFound && heronFound && tigerFound;
     }
     
     /**

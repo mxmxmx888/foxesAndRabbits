@@ -8,7 +8,7 @@ public class Main {
     }
 
     private void start() {
-        simulator = new Simulator();  // Initialize simulator
-        simulator.runLongSimulation(); // Example usage
+        simulator = new Simulator();
+        simulator.runLongSimulation();
     }
 }

@@ -10,7 +10,7 @@ public class Heron extends Animal{
     private static final int MAX_AGE = 22;
 
     // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.17;
+    private static final double BREEDING_PROBABILITY = 0.4;
 
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 3;
@@ -23,13 +23,7 @@ public class Heron extends Animal{
     // The rabbit's age.
     private int age;
 
-    /**
-     * Create a new rabbit. A rabbit may be created with age
-     * zero (a new born) or with a random age.
-     *
-     * @param randomAge If true, the rabbit will have a random age.
-     * @param location The location within the field.
-     */
+
     public Heron(boolean randomAge, Location location)
     {
         super(location);
