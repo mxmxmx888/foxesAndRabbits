@@ -42,6 +42,7 @@ public class SimulatorView extends JFrame
     {
         stats = new FieldStats();
         colors = new LinkedHashMap<>();
+        //colour initialisation for all acting species
         setColor(Capybara.class, Color.pink);
         setColor(Wolf.class, Color.blue);
         setColor(Tiger.class, Color.red);
@@ -49,7 +50,7 @@ public class SimulatorView extends JFrame
         setColor(Heron.class, Color.magenta);
         setColor(Grass.class, Color.green);
 
-        setTitle("Fox and Rabbit Simulation");
+        setTitle("Jungle Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         

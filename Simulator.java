@@ -14,17 +14,17 @@ public class Simulator
     private static final int DEFAULT_WIDTH = 120;
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
-    // The probability that a fox will be created in any given grid position.
+    // The probability that a wolf will be created
     private static final double WOLF_CREATION_PROBABILITY = 0.04;
-    // The probability that a rabbit will be created in any given position.
+    // The probability that a capybara will be created
     private static final double CAPYBARA_CREATION_PROBABILITY = 0.1;
     // probability that tiger will be created
     private static final double TIGER_CREATION_PROBABILITY = 0.06;
-
+    //probability that anaconda will be created
     private static final double ANACONDA_CREATION_PROBABILITY = 0.03;
-
+    //probability that heron will be created
     private static final double HERON_CREATION_PROBABILITY = 0.05;
-
+    //probability that grass will be created
     private static final double GRASS_CREATION_PROBABILITY = 0.2;
 
     private static int hour;
@@ -173,7 +173,7 @@ public class Simulator
 
                 }
                 else{
-                    //spawns capybaras/anacondas/herons
+                    //spawns capybaras/anacondas/herons in odd cells
                     if (rand.nextDouble() <= CAPYBARA_CREATION_PROBABILITY) {
                         Location location = new Location(row, col);
                         Capybara capybara = new Capybara(true, location);

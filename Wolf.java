@@ -34,13 +34,7 @@ public class Wolf extends Animal
     // The fox's food level, which is increased by eating rabbits.
     private int foodLevel;
 
-    /**
-     * Create a fox. A fox can be created as a new born (age zero
-     * and not hungry) or with a random age and food level.
-     * 
-     * @param randomAge If true, the fox will have random age and hunger level.
-     * @param location The location within the field.
-     */
+
     public Wolf(boolean randomAge, Location location)
     {
         super(location);

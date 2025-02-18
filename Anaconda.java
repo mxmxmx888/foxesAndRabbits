@@ -29,13 +29,6 @@ public class Anaconda extends Animal
     // The fox's food level, which is increased by eating rabbits.
     private int foodLevel;
 
-    /**
-     * Create a fox. A fox can be created as a new born (age zero
-     * and not hungry) or with a random age and food level.
-     *
-     * @param randomAge If true, the fox will have random age and hunger level.
-     * @param location The location within the field.
-     */
     public Anaconda(boolean randomAge, Location location)
     {
         super(location);
@@ -48,15 +41,10 @@ public class Anaconda extends Animal
         foodLevel = rand.nextInt(CAPYBARA_FOOD_VALUE);
     }
 
-    /**
-     * This is what the fox does most of the time: it hunts for
-     * rabbits. In the process, it might breed, die of hunger,
-     * or die of old age.
-     * @param currentField The field currently occupied.
-     * @param nextFieldState The updated field.
-     */
+
     public void act(Field currentField, Field nextFieldState)
     {
+        //increment hunger and age of ananconda
         incrementAge();
         incrementHunger();
         riskDisease();
@@ -69,19 +57,19 @@ public class Anaconda extends Animal
             if(! freeLocations.isEmpty()) {
                 giveBirth(nextFieldState, freeLocations);
             }
-            // Move towards a source of food if found.
+            // Move towards a source of food if found
             Location nextLocation = findFood(currentField);
             if(nextLocation == null && ! freeLocations.isEmpty()) {
                 // No food found - try to move to a free location.
                 nextLocation = freeLocations.remove(0);
             }
-            // See if it was possible to move.
+            // See if it was possible to move
             if(nextLocation != null) {
                 setLocation(nextLocation);
                 nextFieldState.placeAnimal(this, nextLocation);
             }
             else {
-                // Overcrowding.
+                // Overcrowding
                 setDead();
             }
         }
@@ -99,7 +87,7 @@ public class Anaconda extends Animal
                 '}';
     }
 
-
+    //increment age of anaconda
     private void incrementAge()
     {
         age++;
@@ -108,7 +96,7 @@ public class Anaconda extends Animal
         }
     }
 
-
+    //increment hunger of anaconda
     private void incrementHunger()
     {
         foodLevel--;
@@ -120,12 +108,14 @@ public class Anaconda extends Animal
 
     private Location findFood(Field field)
     {
+        //tries to find animals to eat in adjacent locations
         List<Location> adjacent = field.getAdjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
         Location foodLocation = null;
         while(foodLocation == null && it.hasNext()) {
             Location loc = it.next();
             Animal animal = field.getAnimalAt(loc);
+            //if animal that was found is capybara then update food level of anaconda with CAPYBARA_FOOD_VALUE and kill capybara
             if(animal instanceof Capybara capybara) {
                 if(capybara.isAlive()) {
                     capybara.setDead();
@@ -133,6 +123,7 @@ public class Anaconda extends Animal
                     foodLocation = loc;
                 }
             }
+            //if animal that was found is heron then update food level of anaconda with HERON_FOOD_VALUE and kill heron
             else if (animal instanceof Heron heron) {
                 if (heron.isAlive()){
                     heron.setDead();
@@ -140,6 +131,10 @@ public class Anaconda extends Animal
                     foodLocation = loc;
                 }
             }
+            /**
+             * anaconda can "step" on grass and destroy it but not eat
+             * it was done so that anaconda doesnt get trapped in the grass
+             */
             else if (animal instanceof Grass grass)
             {
                 if(grass.isAlive()){
@@ -154,8 +149,7 @@ public class Anaconda extends Animal
 
     private void giveBirth(Field nextFieldState, List<Location> freeLocations)
     {
-        // New foxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
+
         int births = breed();
         if(births > 0) {
             for (int b = 0; b < births && ! freeLocations.isEmpty(); b++) {
