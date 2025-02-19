@@ -35,10 +35,10 @@ public class Wolf extends Animal
     private int foodLevel;
 
     /**
-     * Create a fox. A fox can be created as a new born (age zero
+     * Create a wolf. A wolf can be created as a new born (age zero
      * and not hungry) or with a random age and food level.
      * 
-     * @param randomAge If true, the fox will have random age and hunger level.
+     * @param randomAge If true, the wolf will have random age and hunger level.
      * @param location The location within the field.
      */
     public Wolf(boolean randomAge, Location location)
@@ -54,8 +54,8 @@ public class Wolf extends Animal
     }
     
     /**
-     * This is what the fox does most of the time: it hunts for
-     * rabbits. In the process, it might breed, die of hunger,
+     * This is what the wolf does most of the time: it hunts for
+     * capybaras and herons. In the process, it might breed, die of hunger,
      * or die of old age.
      * @param currentField The field currently occupied.
      * @param nextFieldState The updated field.

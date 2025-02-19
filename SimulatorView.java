@@ -15,8 +15,6 @@ import java.util.Map;
  */
 public class SimulatorView extends JFrame
 {
-    // Colors used for empty locations.
-    private static final Color EMPTY_COLOR = Color.white;
 
     // Color used for objects that have no defined color.
     private static final Color UNKNOWN_COLOR = Color.gray;
@@ -31,7 +29,7 @@ public class SimulatorView extends JFrame
     private final Map<Class<?>, Color> colors;
     // A statistics object computing and storing simulation information
     private final FieldStats stats;
-
+    // Color used for the empty locations
     private Color emptyColor = Color.white;
     /**
      * Create a view of the given width and height.
@@ -49,7 +47,7 @@ public class SimulatorView extends JFrame
         setColor(Heron.class, Color.magenta);
         setColor(Grass.class, Color.green);
 
-        setTitle("Fox and Rabbit Simulation");
+        setTitle("Jungle Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         
@@ -64,6 +62,12 @@ public class SimulatorView extends JFrame
         pack();
         setVisible(true);
     }
+
+    /**
+     * used to change the grid view from white to black
+     * depending on whether it's night or not
+     * @param isNight
+     */
     public void setNight (boolean isNight) {
         if (isNight) {
             fieldView.setBackground(Color.black);

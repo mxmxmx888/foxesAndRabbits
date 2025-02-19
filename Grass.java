@@ -60,8 +60,8 @@ public class Grass extends Animal
 
 
     /**
-     * Check whether or not this rabbit is to give birth at this step
-     * New births will be made into free adjacent locations
+     * Check whether or not this grass it to "spread" at this step
+     * New births ("spreads") will be made into free adjacent locations
      * @param freeLocations The locations that are free in the current field
      */
     private void giveBirth(Field nextFieldState, List<Location> freeLocations)
@@ -79,7 +79,7 @@ public class Grass extends Animal
     }
 
     /**
-     * Generate a number representing the number of births
+     * Generate a number representing the number of births ("spreads")
      * if it can breed
      * @return The number of births (may be zero)
      */

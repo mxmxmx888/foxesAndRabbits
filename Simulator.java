@@ -2,9 +2,9 @@ import java.util.*;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field containing 
- * rabbits and foxes.
+ * predators, preys and grass
  * 
- * @author David J. Barnes and Michael Kölling
+ * @author Maksym Byelko and Tajim Hasan
  * @version 7.1
  */
 public class Simulator
@@ -23,12 +23,12 @@ public class Simulator
 
     private static final double ANACONDA_CREATION_PROBABILITY = 0.03;
 
-    private static final double HERON_CREATION_PROBABILITY = 0.05;
+    private static final double HERON_CREATION_PROBABILITY = 0.09;
 
     private static final double GRASS_CREATION_PROBABILITY = 0.2;
-
+    // keeps track of hour of the day
     private static int hour;
-
+    // whether it is night or morning
     private boolean isNight;
 
     // The current state of the field.
@@ -91,7 +91,7 @@ public class Simulator
     
     /**
      * Run the simulation from its current state for a single step.
-     * Iterate over the whole field updating the state of each fox and rabbit.
+     * Iterate over the whole field updating the state of each animals and grass.
      */
     public void simulateOneStep()
     {
@@ -104,8 +104,9 @@ public class Simulator
         for (Animal anAnimal : animals) {
             anAnimal.act(field, nextFieldState);
         }
+        //increments hour by 1 per step
         hour = (hour + 1) % 24;
-
+        // sets nighttime during 6pm until its 6am
         if (hour>= 18 || hour < 6) {
             view.setNight(true);
             isNight = true;
@@ -122,7 +123,7 @@ public class Simulator
         view.showStatus(step, field);
         delay(1);
     }
-
+    // checks whether its night
     public static boolean isNight() {
         return hour >= 18 || hour < 6;
     }
@@ -138,7 +139,7 @@ public class Simulator
     }
     
     /**
-     * Randomly populate the field with foxes and rabbits.
+     * Randomly populate the field with animals and grass.
      */
     private void populate()
     {

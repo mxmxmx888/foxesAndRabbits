@@ -4,17 +4,17 @@ import java.util.Random;
 
 public class Anaconda extends Animal
 {
-    // Characteristics shared by all foxes (class variables).c
-    // The age at which a fox can start to breed.
+    // Characteristics shared by all anacondas (class variables).c
+    // The age at which an anaconda can start to breed.
     private static final int BREEDING_AGE = 10;
-    // The age to which a fox can live.
+    // The age to which an anaconda can live.
     private static final int MAX_AGE = 55;
-    // The likelihood of a fox breeding.
+    // The likelihood of an anaconda breeding.
     private static final double BREEDING_PROBABILITY = 0.15;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 3;
-    // The food value of a single rabbit. In effect, this is the
-    // number of steps a fox can go before it has to eat again.
+    // The food value of a single capybara and heron. In effect, this is the
+    // number of steps an anaconda can go before it has to eat again.
     private static final int CAPYBARA_FOOD_VALUE = 10;
 
     private static final int HERON_FOOD_VALUE = 8;
@@ -24,16 +24,16 @@ public class Anaconda extends Animal
 
     // Individual characteristics (instance fields).
 
-    // The fox's age.
+    // The anaconda's age.
     private int age;
-    // The fox's food level, which is increased by eating rabbits.
+    // The anaconda's food level, which is increased by eating capybaras and rabbits.
     private int foodLevel;
 
     /**
-     * Create a fox. A fox can be created as a new born (age zero
+     * Create an anaconda. An anaconda can be created as a new born (age zero
      * and not hungry) or with a random age and food level.
      *
-     * @param randomAge If true, the fox will have random age and hunger level.
+     * @param randomAge If true, the anaconda will have random age and hunger level.
      * @param location The location within the field.
      */
     public Anaconda(boolean randomAge, Location location)
@@ -49,8 +49,8 @@ public class Anaconda extends Animal
     }
 
     /**
-     * This is what the fox does most of the time: it hunts for
-     * rabbits. In the process, it might breed, die of hunger,
+     * This is what the anaconda does most of the time: it hunts for
+     * capybaras and herons. In the process, it might breed, die of hunger,
      * or die of old age.
      * @param currentField The field currently occupied.
      * @param nextFieldState The updated field.

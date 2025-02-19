@@ -44,7 +44,7 @@ public class Capybara extends Animal
     }
     
     /**
-     * This is what the rabbit does most of the time - it runs 
+     * This is what the capybara does most of the time - it runs
      * around. Sometimes it will breed or die of old age.
      * @param currentField The field occupied.
      * @param nextFieldState The updated field.
@@ -107,7 +107,7 @@ public class Capybara extends Animal
      */
     private void giveBirth(Field nextFieldState, List<Location> freeLocations)
     {
-        // New rabbits are born into adjacent locations.
+        // New capybaras are born into adjacent locations.
         // Get a list of adjacent free locations.
         int births = breed();
         if(births > 0) {

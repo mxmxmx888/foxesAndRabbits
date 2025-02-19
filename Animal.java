@@ -2,9 +2,9 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Common elements of foxes and rabbits.
+ * Common elements of the acting species.
  *
- * @author David J. Barnes and Michael Kölling
+ * @author Maksym Byelko and Tajim Hasan
  * @version 7.0
  */
 public abstract class Animal
@@ -13,8 +13,9 @@ public abstract class Animal
     private boolean alive;
     // The animal's position.
     private Location location;
-
+    // Whether the animal is infected or not.
     private boolean infected;
+    // Used for random generator for disease
     private static Random rand = new Random();
 
     /**
@@ -53,17 +54,27 @@ public abstract class Animal
         location = null;
     }
 
+    /**
+     * checks whether the animal is infected or not.
+     */
     public boolean isInfected(){
         return infected;
     }
 
+    /**
+     * infects the animal
+     */
     public void infect() {
         infected = true;
     }
 
+    /**
+     * this is risk of death from disease
+     * there's a 10% chance that the animal will die
+     */
     public void riskDisease(){
         if (infected) {
-            if (rand.nextDouble() < 0.25) {
+            if (rand.nextDouble() < 0.1) {
 
                 setDead();
             }
@@ -87,6 +98,10 @@ public abstract class Animal
     {
         this.location = location;
     }
+
+    /**
+     *this is used to spread disease to nearby animals
+     */
     public void spreadDisease(Field currentField){
         if (infected) {
             List<Location> adjacentLocations = currentField.getAdjacentLocations(getLocation());

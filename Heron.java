@@ -2,14 +2,14 @@ import java.util.List;
 import java.util.Random;
 
 public class Heron extends Animal{
-    // Characteristics shared by all rabbits (class variables).
-    // The age at which a rabbit can start to breed.
+    // Characteristics shared by all herons (class variables).
+    // The age at which a heron can start to breed.
     private static final int BREEDING_AGE = 8;
 
-    // The age to which a rabbit can live.
+    // The age to which a heron can live.
     private static final int MAX_AGE = 22;
 
-    // The likelihood of a rabbit breeding.
+    // The likelihood of a heron breeding.
     private static final double BREEDING_PROBABILITY = 0.17;
 
     // The maximum number of births.
@@ -20,14 +20,14 @@ public class Heron extends Animal{
 
     // Individual characteristics (instance fields).
 
-    // The rabbit's age.
+    // The heron's age.
     private int age;
 
     /**
-     * Create a new rabbit. A rabbit may be created with age
+     * Create a new heron. A heron may be created with age
      * zero (a new born) or with a random age.
      *
-     * @param randomAge If true, the rabbit will have a random age.
+     * @param randomAge If true, the heron will have a random age.
      * @param location The location within the field.
      */
     public Heron(boolean randomAge, Location location)
@@ -40,8 +40,9 @@ public class Heron extends Animal{
     }
 
     /**
-     * This is what the rabbit does most of the time - it runs
+     * This is what the heron does most of the time - it runs
      * around. Sometimes it will breed or die of old age.
+     * can also have disease and risk dying or infect to other animals
      * @param currentField The field occupied.
      * @param nextFieldState The updated field.
      */
@@ -55,9 +56,9 @@ public class Heron extends Animal{
         spreadDisease(currentField);
 
         boolean isNight = Simulator.isNight();
-        // At night, only act (move/breed) with a 10% chance.
+        // At night, only act with a 10% chance.
         if (isNight && rand.nextDouble() >= 0.1) {
-            // 90% of the time at night, do nothing—but still remain in the same location.
+            // 90% of the time at night do nothing
             nextFieldState.placeAnimal(this, getLocation());
             return;
         }
@@ -94,7 +95,7 @@ public class Heron extends Animal{
 
     /**
      * Increase the age.
-     * This could result in the rabbit's death.
+     * This could result in the heron's death.
      */
     private void incrementAge()
     {
@@ -105,13 +106,13 @@ public class Heron extends Animal{
     }
 
     /**
-     * Check whether or not this rabbit is to give birth at this step.
+     * Check whether or not this heron is to give birth at this step.
      * New births will be made into free adjacent locations.
      * @param freeLocations The locations that are free in the current field.
      */
     private void giveBirth(Field nextFieldState, List<Location> freeLocations)
     {
-        // New rabbits are born into adjacent locations.
+        // New herons are born into adjacent locations.
         // Get a list of adjacent free locations.
         int births = breed();
         if(births > 0) {
@@ -141,8 +142,8 @@ public class Heron extends Animal{
     }
 
     /**
-     * A rabbit can breed if it has reached the breeding age.
-     * @return true if the rabbit can breed, false otherwise.
+     * A heron can breed if it has reached the breeding age.
+     * @return true if the heron can breed, false otherwise.
      */
     private boolean canBreed()
     {
